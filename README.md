@@ -38,7 +38,7 @@ Backend
 
 Frontend
 
-- Next.js, TypeScript, HTML, CSS
+- Next.js, TypeScript, CSS
 - Reusable components and standalone pages
 
 Infrastructure
