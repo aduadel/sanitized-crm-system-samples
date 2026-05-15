@@ -31,14 +31,14 @@ This repository contains a sanitized, production-inspired implementation demonst
 
 Backend
 
-- Node.js, Express
+- Node.js, Express, TypeScript
 - PostgreSQL
 - MVC-style organization (Controllers, Services, Routes)
 - Utilities: generic CRUD helpers, pagination, validation
 
 Frontend
 
-- HTML, CSS, Vanilla JavaScript
+- Next.js, TypeScript, HTML, CSS
 - Reusable components and standalone pages
 
 Infrastructure
@@ -61,10 +61,11 @@ Backend (Node.js)
 ├── Routes
 └── Utils
 
-Frontend (Vanilla JS)
+Frontend (Next.js + TypeScript)
 │
-├── Pages (Leads, Clients, Students, Courses, Sessions…)
-└── Shared scripts & components
+├── App
+├── Components
+└── Lib
 
 Infrastructure (AWS)
 │
@@ -74,36 +75,6 @@ Infrastructure (AWS)
 ├── CloudFront CDN
 └── Cognito Authentication
 ```
-
----
-
-## Code Samples Included
-
-Sanitized, generic modules demonstrating core patterns used in production:
-
-```
-code-samples/
-    backend/
-        auth-middleware.js
-        generic-crud-controller.js
-        generic-crud-service.js
-        pagination-helper.js
-        session-reminder-scheduler.js
-        whatsapp-template-message.js
-
-    frontend/
-        login/
-            login.html
-            login.css
-            login.js
-
-        invoice-form/
-            invoice-form.html
-            invoice-form.css
-            invoice-form.js
-```
-
-These samples are intentionally generic and do not contain business-specific logic or sensitive data.
 
 ---
 
@@ -122,7 +93,70 @@ This repository excludes all sensitive and production-specific material:
 - Designed for high-volume datasets with indexing and query optimizations
 - Role-based access control and OAuth2 via Cognito
 - Scheduled jobs (cron-like) for reminders and automated messaging
-- Basic retry and error-handling strategies for external integrations
+- Retry and error-handling strategies for external integrations
+
+---
+
+## Getting started
+
+1. Install dependencies from the repository root:
+
+```bash
+npm install
+```
+
+2. Start both applications together:
+
+```bash
+npm run dev
+```
+
+3. Open the apps:
+
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:4000`
+
+---
+
+## Available scripts
+
+From the repository root:
+
+- `npm run dev` runs frontend and backend together
+- `npm run build` builds both projects
+- `npm run typecheck` checks both TypeScript projects
+- `npm run lint` runs the frontend lint task
+
+---
+
+## Environment variables
+
+Backend defaults are safe for local sample mode, but you can override them with `backend/.env`:
+
+```env
+PORT=4000
+FRONTEND_URL=http://localhost:3000
+AUTH_REDIRECT_URI=http://localhost:3000/login
+JWT_SECRET=development-secret
+AUTH_CLIENT_ID=YOUR_CLIENT_ID
+AUTH_DOMAIN=https://YOUR_AUTH_DOMAIN.auth.region.amazoncognito.com
+WHATSAPP_API_TOKEN=
+WHATSAPP_API_URL=
+```
+
+Frontend can be configured with `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:4000/api
+```
+
+---
+
+## Notes
+
+- The backend currently uses an in-memory sample store so the project runs without a database.
+- The original sample code remains in `sanitized-production-samples/`.
+- The auth and reminder flows are still sample-safe placeholders and are ready for real provider and database wiring.
 
 ---
 
